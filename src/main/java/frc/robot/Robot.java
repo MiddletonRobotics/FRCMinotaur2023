@@ -4,8 +4,23 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+
+import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -15,19 +30,51 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
  */
 public class Robot extends TimedRobot {
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
+  private Joystick stick;
+  private DifferentialDrive drive;
 
-  private PWMTalonFX leftMaster = new PWMTalonFX(12);
-  private PWMTalonFX leftSlave = new PWMTalonFX(13);
-  private PWMTalonFX rightMaster = new PWMTalonFX(14);
-  private PWMTalonFX rightSlave = new PWMTalonFX(15);
-
+  public WPI_TalonFX[] leftMotors;
+  public WPI_TalonFX[] rightMotors;
 
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+
+    stick = new Joystick(0);
+
+    leftMotors = new WPI_TalonFX[2];
+    leftMotors[0] = new WPI_TalonFX(1);
+    leftMotors[1] = new WPI_TalonFX(2);
+
+    rightMotors = new WPI_TalonFX[2];
+    rightMotors[0] = new WPI_TalonFX(3);
+    rightMotors[1] = new WPI_TalonFX(4);
+
+    for (int i = 0; i < 2; i++) {
+      leftMotors[i].setInverted(false);
+      leftMotors[i].setNeutralMode(NeutralMode.Brake);
+      leftMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+      leftMotors[i].setSelectedSensorPosition(0);
+      leftMotors[i].configVelocityMeasurementWindow(1);
+      leftMotors[i].configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_1Ms);
+
+      rightMotors[i].setInverted(false);
+      rightMotors[i].setNeutralMode(NeutralMode.Brake);
+      rightMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+      rightMotors[i].setSelectedSensorPosition(0);
+      rightMotors[i].configVelocityMeasurementWindow(1);
+      rightMotors[i].configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_1Ms);
+
+      if (i != 0) {
+          leftMotors[i].follow(leftMotors[0]);
+          rightMotors[i].follow(rightMotors[0]);
+      }
+    }
+
+    drive = new DifferentialDrive(
+      new MotorControllerGroup(leftMotors[0], leftMotors[1]),
+      new MotorControllerGroup(rightMotors[0], rightMotors[1])
+    );
+  }
 
   @Override
   public void robotPeriodic() {}
@@ -43,14 +90,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    leftMaster.set(0.5);
-    leftSlave.set(0.5);
-    rightMaster.set(-0.5);
-    rightSlave.set(-0.5);
+    System.out.println("Asterion is live!");
+    drive.tankDrive(50, 50);
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    System.out.println("Asterion is disabled");
+    drive.tankDrive(0, 0);
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -59,7 +107,9 @@ public class Robot extends TimedRobot {
   public void testInit() {}
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    drive.arcadeDrive(-stick.getY(), stick.getX());
+  }
 
   @Override
   public void simulationInit() {}
