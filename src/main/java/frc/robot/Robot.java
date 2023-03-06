@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import static frc.robot.Utilities.Constants.Constants.*;
 
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -30,7 +32,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
  */
 public class Robot extends TimedRobot {
 
-  private Joystick stick;
+  private CommandXboxController xbox;
   private DifferentialDrive drive;
 
   public WPI_TalonFX[] leftMotors;
@@ -39,7 +41,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    stick = new Joystick(0);
+    xbox = new CommandXboxController(0);
 
     leftMotors = new WPI_TalonFX[2];
     leftMotors[0] = new WPI_TalonFX(1);
@@ -86,12 +88,13 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    System.out.println("Asterion is live!");
+  }
 
   @Override
   public void teleopPeriodic() {
-    System.out.println("Asterion is live!");
-    drive.tankDrive(50, 50);
+    drive.tankDrive(50, 5);
   }
 
   @Override
@@ -108,7 +111,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    drive.arcadeDrive(-stick.getY(), stick.getX());
+    if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
+      drive.tankDrive(xbox.getRightTriggerAxis(), xbox.getLeftX());
+    } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
+      drive.tankDrive(xbox.getLeftTriggerAxis(), xbox.getLeftX());
+    } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
+      drive.tankDrive(0, 0);
+    } else if(xbox.getLeftTriggerAxis() < kTriggerAxisThreshold) {
+      drive.tankDrive(0, 0);
+    }
   }
 
   @Override
