@@ -43,13 +43,13 @@ public class Robot extends TimedRobot {
 
     xbox = new CommandXboxController(0);
 
-    leftMotors = new WPI_TalonFX[2];
-    leftMotors[0] = new WPI_TalonFX(1);
-    leftMotors[1] = new WPI_TalonFX(2);
+    leftMotors = new WPI_TalonFX[leftMotorCount];
+    leftMotors[0] = new WPI_TalonFX(leftMasterID);
+    leftMotors[1] = new WPI_TalonFX(leftSlaveID);
 
-    rightMotors = new WPI_TalonFX[2];
-    rightMotors[0] = new WPI_TalonFX(3);
-    rightMotors[1] = new WPI_TalonFX(4);
+    rightMotors = new WPI_TalonFX[rightMotorCount];
+    rightMotors[0] = new WPI_TalonFX(rightMasterID);
+    rightMotors[1] = new WPI_TalonFX(leftMasterID);
 
     for (int i = 0; i < 2; i++) {
       leftMotors[i].setInverted(false);
@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    drive.tankDrive(50, 5);
+    drive.tankDrive(50, 0);
   }
 
   @Override
@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
-      drive.tankDrive(xbox.getRightTriggerAxis(), xbox.getLeftX());
+      drive.tankDrive(xbox.getRightTriggerAxis(), xbox.getLeftTriggerAxis());
     } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
       drive.tankDrive(xbox.getLeftTriggerAxis(), xbox.getLeftX());
     } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
