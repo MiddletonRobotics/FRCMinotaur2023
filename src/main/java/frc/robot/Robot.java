@@ -43,13 +43,17 @@ public class Robot extends TimedRobot {
 
     xbox = new CommandXboxController(0);
 
-    leftMotors = new WPI_TalonFX[leftMotorCount];
-    leftMotors[0] = new WPI_TalonFX(leftMasterID);
-    leftMotors[1] = new WPI_TalonFX(leftSlaveID);
+    try {
+      leftMotors = new WPI_TalonFX[leftMotorCount];
+      leftMotors[0] = new WPI_TalonFX(leftMasterID);
+      leftMotors[1] = new WPI_TalonFX(leftSlaveID);
 
-    rightMotors = new WPI_TalonFX[rightMotorCount];
-    rightMotors[0] = new WPI_TalonFX(rightMasterID);
-    rightMotors[1] = new WPI_TalonFX(leftMasterID);
+      rightMotors = new WPI_TalonFX[rightMotorCount];
+      rightMotors[0] = new WPI_TalonFX(rightMasterID);
+      rightMotors[1] = new WPI_TalonFX(rightSlaveID);
+    } catch(Exception err) {
+      System.out.println("Error: " + err);
+    }
 
     for (int i = 0; i < 2; i++) {
       leftMotors[i].setInverted(false);
