@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
@@ -35,8 +35,8 @@ public class Robot extends TimedRobot {
   private CommandXboxController xbox;
   private DifferentialDrive drive;
 
-  public WPI_VictorSPX[] leftMotors;
-  public WPI_VictorSPX[] rightMotors;
+  public WPI_TalonSRX[] leftMotors;
+  public WPI_TalonSRX[] rightMotors;
 
   @Override
   public void robotInit() {
@@ -44,13 +44,13 @@ public class Robot extends TimedRobot {
     xbox = new CommandXboxController(0);
 
     try {
-      leftMotors = new WPI_VictorSPX[leftMotorCount];
-      leftMotors[0] = new WPI_VictorSPX(leftMasterID);
-      leftMotors[1] = new WPI_VictorSPX(leftSlaveID);
+      leftMotors = new WPI_TalonSRX[leftMotorCount];
+      leftMotors[0] = new WPI_TalonSRX(leftMasterID);
+      leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
 
-      rightMotors = new WPI_VictorSPX[rightMotorCount];
-      rightMotors[0] = new WPI_VictorSPX(rightMasterID);
-      rightMotors[1] = new WPI_VictorSPX(rightSlaveID);
+      rightMotors = new WPI_TalonSRX[rightMotorCount];
+      rightMotors[0] = new WPI_TalonSRX(rightMasterID);
+      rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
     } catch(Exception err) {
       System.out.println("Something went wrong" + err);
     }
