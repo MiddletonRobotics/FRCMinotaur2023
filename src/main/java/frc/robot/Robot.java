@@ -43,7 +43,6 @@ public class Robot extends TimedRobot {
 
     xbox = new CommandXboxController(0);
 
-    try {
       leftMotors = new WPI_TalonSRX[leftMotorCount];
       leftMotors[0] = new WPI_TalonSRX(leftMasterID);
       leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
@@ -51,9 +50,6 @@ public class Robot extends TimedRobot {
       rightMotors = new WPI_TalonSRX[rightMotorCount];
       rightMotors[0] = new WPI_TalonSRX(rightMasterID);
       rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
-    } catch(Exception err) {
-      System.out.println("Something went wrong" + err);
-    }
 
     for (int i = 0; i < 2; i++) {
       leftMotors[i].setInverted(false);
@@ -98,7 +94,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    drive.tankDrive(50, 0);
+    drive.tankDrive(50, 50);
   }
 
   @Override
@@ -116,14 +112,26 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
-      drive.tankDrive(xbox.getRightTriggerAxis(), xbox.getLeftTriggerAxis());
+      drive.tankDrive(xbox.getRightTriggerAxis(), xbox.getRightTriggerAxis());
     } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
-      drive.tankDrive(xbox.getLeftTriggerAxis(), xbox.getLeftX());
+      drive.tankDrive(xbox.getLeftTriggerAxis(), xbox.getLeftTriggerAxis());
     } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
       drive.tankDrive(0, 0);
     } else if(xbox.getLeftTriggerAxis() < kTriggerAxisThreshold) {
       drive.tankDrive(0, 0);
     }
+
+    /*
+
+     if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
+      drive.arcadeDrive(xbox.getRightTriggerAxis(), xbox.getLeftX());
+    } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
+      drive.arcadeDrive(xbox.getLeftTriggerAxis(), xbox.getLeftX());
+    } else if(xbox.getRightTriggerAxis() || xbox.getLeftTriggerAxis() < kTriggerAxisThreshold) {
+      drive.arcadeDrive(0, 0);
+    }
+
+     */
   }
 
   @Override
