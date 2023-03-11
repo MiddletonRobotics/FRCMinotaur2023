@@ -1,4 +1,4 @@
-/* 
+/*
 
 package frc.robot.Utilities.Drivers;
 
@@ -7,10 +7,11 @@ import static frc.robot.Utilities.Constants.Constants.*;
 
 public class XboxController extends CommandXboxController implements Constants {
 
-    public XboxController = new CommandXboxController(0);
+    CommandXboxController XboxController = new CommandXboxController(0);
 
-    private static DriveControl instance = null
-    private DriveControl() {
+    private static DriveControl instance = null;
+
+    private void DriveControl() {
         if (XboxController.getRightTriggerAxis() > kTriggerAxisThreshold) {
 
         } else if (XboxController.getRightTriggerAxis() < kTriggerAxisThreshold) {
