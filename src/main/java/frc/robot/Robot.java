@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
       rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
 
     for (int i = 0; i < 2; i++) {
-      leftMotors[i].setInverted(false);
+      leftMotors[i].setInverted(true);
       leftMotors[i].setNeutralMode(NeutralMode.Brake);
       leftMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
       leftMotors[i].setSelectedSensorPosition(0);
@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    drive.tankDrive(50, 50);
+    drive.tankDrive(0.5, 0.5);
   }
 
   @Override
@@ -111,27 +111,25 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
-      drive.tankDrive(xbox.getRightTriggerAxis(), xbox.getRightTriggerAxis());
-    } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
-      drive.tankDrive(xbox.getLeftTriggerAxis(), xbox.getLeftTriggerAxis());
-    } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
-      drive.tankDrive(0, 0);
-    } else if(xbox.getLeftTriggerAxis() < kTriggerAxisThreshold) {
-      drive.tankDrive(0, 0);
-    }
-
-    /*
-
      if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
-      drive.arcadeDrive(xbox.getRightTriggerAxis(), xbox.getLeftX());
+      double controllerSpeedData = xbox.getRightTriggerAxis();
+      double speed = controllerSpeedData * 0.5;
+
+      double turningData = xbox.getLeftX();
+      double turn = turningData * 0.5;
+
+      drive.arcadeDrive(speed, turn);
     } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
-      drive.arcadeDrive(xbox.getLeftTriggerAxis(), xbox.getLeftX());
-    } else if(xbox.getRightTriggerAxis() || xbox.getLeftTriggerAxis() < kTriggerAxisThreshold) {
+      double controllerSpeedData = xbox.getLeftTriggerAxis();
+      double speed = controllerSpeedData * 0.5;
+
+      double turningData = xbox.getLeftX();
+      double turn = turningData * 0.5;
+
+      drive.arcadeDrive(-speed, turn);
+    } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
       drive.arcadeDrive(0, 0);
     }
-
-     */
   }
 
   @Override
