@@ -11,4 +11,7 @@ public interface Constants {
     int rightSlaveID = 4;
 
     double kTriggerAxisThreshold = 0.1;
+    double kJoystickAxisThreshold = 0.1;
+    double motorReductionSpeed = 0.5;
+    double motorReductionTurn = 0.5;
 }

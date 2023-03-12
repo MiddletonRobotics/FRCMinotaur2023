@@ -113,18 +113,18 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
      if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
       double controllerSpeedData = xbox.getRightTriggerAxis();
-      double speed = controllerSpeedData * 0.5;
+      double speed = controllerSpeedData * motorReductionSpeed;
 
       double turningData = xbox.getLeftX();
-      double turn = turningData * 0.5;
+      double turn = turningData * motorReductionTurn;
 
       drive.arcadeDrive(speed, turn);
     } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
       double controllerSpeedData = xbox.getLeftTriggerAxis();
-      double speed = controllerSpeedData * 0.5;
+      double speed = controllerSpeedData * motorReductionSpeed;
 
       double turningData = xbox.getLeftX();
-      double turn = turningData * 0.5;
+      double turn = turningData * motorReductionTurn;
 
       drive.arcadeDrive(-speed, turn);
     } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
