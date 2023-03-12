@@ -1,5 +1,3 @@
-/*
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -13,8 +11,9 @@ import static frc.robot.Utilities.Constants.Constants.*;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveTrain extends Subsystem implements Constants {
+public class DriveTrain extends SubsystemBase {
 
   public WPI_TalonSRX[] leftMotors;
   public WPI_TalonSRX[] rightMotors;
@@ -59,5 +58,3 @@ public class DriveTrain extends Subsystem implements Constants {
     );
   }
 }
-
-*/
