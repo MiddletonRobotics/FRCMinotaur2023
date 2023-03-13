@@ -143,7 +143,7 @@ public class Robot extends TimedRobot {
       rightMotors[0].set(driveRight);
       rightMotors[1].set(driveRight);
 
-    } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
+    } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold || xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
       drive.arcadeDrive(0, 0);
     }
   }
