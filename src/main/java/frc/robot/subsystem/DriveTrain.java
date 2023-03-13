@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
+import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -22,7 +23,7 @@ public class DriveTrain extends SubsystemBase {
 
   private static DriveTrain instance = null;
 
-  private void DriveTrain() {
+  private DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
     leftMotors[0] = new WPI_TalonSRX(leftMasterID);
     leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
@@ -56,5 +57,12 @@ public class DriveTrain extends SubsystemBase {
       new MotorControllerGroup(leftMotors[0], leftMotors[1]),
       new MotorControllerGroup(rightMotors[0], rightMotors[1])
     );
+  }
+
+  public static DriveTrain getInstance() {
+    if (instance == null) {
+      instance = new DriveTrain();
+    }
+    return instance;
   }
 }
