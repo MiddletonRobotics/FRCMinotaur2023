@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
+import frc.robot.subsystems.*;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -43,13 +44,13 @@ public class Robot extends TimedRobot {
 
     xbox = new CommandXboxController(0);
 
-      leftMotors = new WPI_TalonSRX[leftMotorCount];
-      leftMotors[0] = new WPI_TalonSRX(leftMasterID);
-      leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
+    leftMotors = new WPI_TalonSRX[leftMotorCount];
+    leftMotors[0] = new WPI_TalonSRX(leftMasterID);
+    leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
 
-      rightMotors = new WPI_TalonSRX[rightMotorCount];
-      rightMotors[0] = new WPI_TalonSRX(rightMasterID);
-      rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
+    rightMotors = new WPI_TalonSRX[rightMotorCount];
+    rightMotors[0] = new WPI_TalonSRX(rightMasterID);
+    rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
 
     for (int i = 0; i < 2; i++) {
       leftMotors[i].setInverted(true);
@@ -111,14 +112,22 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-     if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
+    
+    if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
       double controllerSpeedData = xbox.getRightTriggerAxis();
       double speed = controllerSpeedData * motorReductionSpeed;
 
       double turningData = xbox.getLeftX();
       double turn = turningData * motorReductionTurn;
 
-      drive.arcadeDrive(speed, turn);
+      double driveRight = speed + turn * motorReductionSpeed;
+      double driveLeft = speed - turn;
+
+      leftMotors[0].set(driveLeft);
+      leftMotors[1].set(driveLeft);
+      rightMotors[0].set(driveRight);
+      rightMotors[1].set(driveRight);
+
     } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
       double controllerSpeedData = xbox.getLeftTriggerAxis();
       double speed = controllerSpeedData * motorReductionSpeed;
@@ -126,7 +135,14 @@ public class Robot extends TimedRobot {
       double turningData = xbox.getLeftX();
       double turn = turningData * motorReductionTurn;
 
-      drive.arcadeDrive(-speed, turn);
+      double driveRight = -speed + turn * motorReductionSpeed;
+      double driveLeft = -speed - turn;
+
+      leftMotors[0].set(driveLeft);
+      leftMotors[1].set(driveLeft);
+      rightMotors[0].set(driveRight);
+      rightMotors[1].set(driveRight);
+
     } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
       drive.arcadeDrive(0, 0);
     }
