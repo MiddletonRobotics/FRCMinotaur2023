@@ -34,49 +34,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class Robot extends TimedRobot {
 
   private CommandXboxController xbox;
-  private DifferentialDrive drive;
-
-  public WPI_TalonSRX[] leftMotors;
-  public WPI_TalonSRX[] rightMotors;
+  private DriveTrain drivetrain;
 
   @Override
   public void robotInit() {
-
     xbox = new CommandXboxController(0);
-
-    leftMotors = new WPI_TalonSRX[leftMotorCount];
-    leftMotors[0] = new WPI_TalonSRX(leftMasterID);
-    leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
-
-    rightMotors = new WPI_TalonSRX[rightMotorCount];
-    rightMotors[0] = new WPI_TalonSRX(rightMasterID);
-    rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
-
-    for (int i = 0; i < 2; i++) {
-      leftMotors[i].setInverted(true);
-      leftMotors[i].setNeutralMode(NeutralMode.Brake);
-      leftMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-      leftMotors[i].setSelectedSensorPosition(0);
-      leftMotors[i].configVelocityMeasurementWindow(1);
-      leftMotors[i].configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_1Ms);
-
-      rightMotors[i].setInverted(false);
-      rightMotors[i].setNeutralMode(NeutralMode.Brake);
-      rightMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-      rightMotors[i].setSelectedSensorPosition(0);
-      rightMotors[i].configVelocityMeasurementWindow(1);
-      rightMotors[i].configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_1Ms);
-
-      if (i != 0) {
-          leftMotors[i].follow(leftMotors[0]);
-          rightMotors[i].follow(rightMotors[0]);
-      }
-    }
-
-    drive = new DifferentialDrive(
-      new MotorControllerGroup(leftMotors[0], leftMotors[1]),
-      new MotorControllerGroup(rightMotors[0], rightMotors[1])
-    );
+    drivetrain = DriveTrain.getInstance();
   }
 
   @Override
