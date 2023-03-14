@@ -1,5 +1,3 @@
-/*
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -74,11 +72,8 @@ public class DriveTrain extends SubsystemBase {
 
   private TestingPeriodic() {
 
-    private DriveTrain drivetrain;
-    private CommandXboxController xbox;
-
-    drivetrain = DriveTrain.getInstance();
-    xbox = new CommandXboxController(0);
+    final DriveTrain drivetrain = DriveTrain.getInstance();
+    final CommandXboxController xbox = new CommandXboxController(0);
 
     if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
       double controllerSpeedData = xbox.getRightTriggerAxis();
@@ -125,5 +120,3 @@ public class DriveTrain extends SubsystemBase {
     return instance;
   }
 }
-
-*/
