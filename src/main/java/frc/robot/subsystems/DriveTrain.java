@@ -3,13 +3,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
 
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -74,11 +72,11 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {}
   
-  public void ArcadeDrive(double speed, double turn) {
-    leftMotors[0].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-    leftMotors[1].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-    rightMotors[0].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-    rightMotors[1].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
+  public void stop(double speed, double rotation) {
+    leftMotors[0].set(ControlMode.PercentOutput, 0);
+    leftMotors[1].set(ControlMode.PercentOutput, 0);
+    rightMotors[0].set(ControlMode.PercentOutput, 0);
+    rightMotors[1].set(ControlMode.PercentOutput, 0);
   }
 
   public void tankDrive(double rightSpeed, double leftSpeed) {

@@ -24,10 +24,11 @@ public class ArcadeDrive extends CommandBase {
     @Override
     public void execute() {
         double leftTriggerAxis = DriverController.getLeftTriggerAxis();
+        double rightTriggerAxis = DriverController.getRightTriggerAxis();
         double leftXAxis = DriverController.getLeftX();
 
-        double rightDrive = leftTriggerAxis + leftXAxis;
-        double leftDrive = leftTriggerAxis - leftXAxis;
+        double rightDrive = rightTriggerAxis - leftTriggerAxis + (leftXAxis * motorReductionTurn);
+        double leftDrive = rightTriggerAxis - leftTriggerAxis - (leftXAxis * motorReductionTurn);
 
         drivetrain.leftMotors[0].set(ControlMode.PercentOutput, leftDrive);
         drivetrain.leftMotors[1].set(ControlMode.PercentOutput, leftDrive);
