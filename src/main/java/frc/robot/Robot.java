@@ -16,7 +16,6 @@ import static frc.robot.Utilities.Constants.Constants.*;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -38,6 +37,8 @@ public class Robot extends TimedRobot {
 
   private DifferentialDrive drive;
   private CommandXboxController xbox;
+
+  private RobotContainer robotContainer;
 
   @Override
   public void robotInit() {
