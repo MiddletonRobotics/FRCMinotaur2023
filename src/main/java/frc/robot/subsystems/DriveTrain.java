@@ -1,3 +1,5 @@
+/*
+
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -35,7 +37,7 @@ public class DriveTrain extends SubsystemBase {
     rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
 
     for (int i = 0; i < 2; i++) {
-      leftMotors[i].setInverted(false);
+      leftMotors[i].setInverted(true);
       leftMotors[i].setNeutralMode(NeutralMode.Brake);
       leftMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
       leftMotors[i].setSelectedSensorPosition(0);
@@ -68,6 +70,8 @@ public class DriveTrain extends SubsystemBase {
     return instance;
   }
 
+  private static TestingPeriodic instance = null;
+
   private TestingPeriodic() {
 
     private DriveTrain drivetrain;
@@ -86,10 +90,10 @@ public class DriveTrain extends SubsystemBase {
       double driveRight = speed + turn * motorReductionSpeed;
       double driveLeft = speed - turn;
 
-      leftMotors[0].set(driveLeft);
-      leftMotors[1].set(driveLeft);
-      rightMotors[0].set(driveRight);
-      rightMotors[1].set(driveRight);
+      drivetrain.leftMotors[0].set(driveLeft);
+      drivetrain.leftMotors[1].set(driveLeft);
+      drivetrain.rightMotors[0].set(driveRight);
+      drivetrain.rightMotors[1].set(driveRight);
 
     } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
       double controllerSpeedData = xbox.getLeftTriggerAxis();
@@ -101,16 +105,16 @@ public class DriveTrain extends SubsystemBase {
       double driveRight = -speed + turn * motorReductionSpeed;
       double driveLeft = -speed - turn;
 
-      leftMotors[0].set(driveLeft);
-      leftMotors[1].set(driveLeft);
-      rightMotors[0].set(driveRight);
-      rightMotors[1].set(driveRight);
+      drivetrain.leftMotors[0].set(driveLeft);
+      drivetrain.leftMotors[1].set(driveLeft);
+      drivetrain.rightMotors[0].set(driveRight);
+      drivetrain.rightMotors[1].set(driveRight);
 
     } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
-      leftMotors[0].set(0);
-      leftMotors[1].set(0);
-      rightMotors[0].set(0);
-      rightMotors[1].set(0);
+      drivetrain.leftMotors[0].set(0);
+      drivetrain.leftMotors[1].set(0);
+      drivetrain.rightMotors[0].set(0);
+      drivetrain.rightMotors[1].set(0);
     }
   }
 
@@ -121,3 +125,5 @@ public class DriveTrain extends SubsystemBase {
     return instance;
   }
 }
+
+*/
