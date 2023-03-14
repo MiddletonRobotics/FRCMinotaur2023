@@ -1,11 +1,12 @@
-/*
-
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import static frc.robot.Utilities.Constants.Constants.*;
 
@@ -31,6 +32,19 @@ public class Intakaur {
             }
         }
     }
-}
 
-*/
+    public static CommandBase drive(double speed, double turn) {
+        return new CommandBase() {
+            @Override
+            public void execute() {
+                intakaurMotors[0].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
+                intakaurMotors[1].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
+            }
+        };
+    }
+
+    public void stop() {
+        intakaurMotors[0].set(ControlMode.PercentOutput, 0);
+        intakaurMotors[1].set(ControlMode.PercentOutput, 0);
+    }
+}
