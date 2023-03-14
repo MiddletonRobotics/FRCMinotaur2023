@@ -10,6 +10,8 @@ public interface Constants {
     int rightMasterID = 3;
     int rightSlaveID = 4;
 
+    int DriverControllerPort = 0;
+
     double kTriggerAxisThreshold = 0.1;
     double kJoystickAxisThreshold = 0.1;
     double motorReductionSpeed = 1; 
