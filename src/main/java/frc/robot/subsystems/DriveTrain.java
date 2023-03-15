@@ -3,29 +3,27 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
-import frc.robot.subsystems.*;
+import frc.robot.Utilities.Drivers.XboxController;
+import frc.robot.commands.ArcadeDrive;
 
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
 
-  public WPI_TalonSRX[] leftMotors;
-  public WPI_TalonSRX[] rightMotors;
+  public static WPI_TalonSRX[] leftMotors;
+  public static WPI_TalonSRX[] rightMotors;
 
-  private DifferentialDrive drive;
-  private CommandXboxController xbox;
+  private double maxSpeed = 0.8;
 
-  private static DriveTrain instance = null;
-
-  private DriveTrain() {
+  public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
     leftMotors[0] = new WPI_TalonSRX(leftMasterID);
     leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
@@ -55,68 +53,39 @@ public class DriveTrain extends SubsystemBase {
       }
     }
 
-    drive = new DifferentialDrive(
-      new MotorControllerGroup(leftMotors[0], leftMotors[1]),
+    final DifferentialDrive drivetrain = new DifferentialDrive(
+      new MotorControllerGroup(leftMotors[0], leftMotors[1]), 
       new MotorControllerGroup(rightMotors[0], rightMotors[1])
     );
+
+    drivetrain.setSafetyEnabled(false);
   }
 
-  public static DriveTrain getInstance() {
-    if (instance == null) {
-      instance = new DriveTrain();
-    }
-    return instance;
+  public void initDefaultCommand() {
+    setDefaultCommand(new ArcadeDrive(this));
   }
 
-  private static TestingPeriodic instance = null;
-
-  private TestingPeriodic() {
-
-    final DriveTrain drivetrain = DriveTrain.getInstance();
-    final CommandXboxController xbox = new CommandXboxController(0);
-
-    if(xbox.getRightTriggerAxis() > kTriggerAxisThreshold) {
-      double controllerSpeedData = xbox.getRightTriggerAxis();
-      double speed = controllerSpeedData * motorReductionSpeed;
-
-      double turningData = xbox.getLeftX();
-      double turn = turningData * motorReductionTurn;
-
-      double driveRight = speed + turn * motorReductionSpeed;
-      double driveLeft = speed - turn;
-
-      drivetrain.leftMotors[0].set(driveLeft);
-      drivetrain.leftMotors[1].set(driveLeft);
-      drivetrain.rightMotors[0].set(driveRight);
-      drivetrain.rightMotors[1].set(driveRight);
-
-    } else if(xbox.getLeftTriggerAxis() > kTriggerAxisThreshold) {
-      double controllerSpeedData = xbox.getLeftTriggerAxis();
-      double speed = controllerSpeedData * motorReductionSpeed;
-
-      double turningData = xbox.getLeftX();
-      double turn = turningData * motorReductionTurn;
-
-      double driveRight = -speed + turn * motorReductionSpeed;
-      double driveLeft = -speed - turn;
-
-      drivetrain.leftMotors[0].set(driveLeft);
-      drivetrain.leftMotors[1].set(driveLeft);
-      drivetrain.rightMotors[0].set(driveRight);
-      drivetrain.rightMotors[1].set(driveRight);
-
-    } else if(xbox.getRightTriggerAxis() < kTriggerAxisThreshold) {
-      drivetrain.leftMotors[0].set(0);
-      drivetrain.leftMotors[1].set(0);
-      drivetrain.rightMotors[0].set(0);
-      drivetrain.rightMotors[1].set(0);
-    }
+  @Override
+  public void periodic() {}
+  
+  public void stop(double speed, double rotation) {
+    leftMotors[0].set(ControlMode.PercentOutput, 0);
+    leftMotors[1].set(ControlMode.PercentOutput, 0);
+    rightMotors[0].set(ControlMode.PercentOutput, 0);
+    rightMotors[1].set(ControlMode.PercentOutput, 0);
   }
 
-  public static TestingPeriodic getInstance() {
-    if (instance == null) {
-      instance = new TestingPeriodic();
+  public void arcadeDrive(double speed, double rotation) {
+
+    if(speed < 0.1 && speed > -0.1) {
+      speed = 0;
+    } else if(rotation < 0.1 && rotation > -0.1) {
+      rotation = 0;
+    } else {
+      speed = speed * motorReductionSpeed;
+      rotation = rotation * motorReductionTurn;
     }
-    return instance;
+
+    arcadeDrive(speed, rotation);
   }
 }
