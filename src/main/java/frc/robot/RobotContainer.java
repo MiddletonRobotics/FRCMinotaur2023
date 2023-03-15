@@ -26,7 +26,7 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        DriverController.leftTrigger().whileTrue(Commands.run(() -> ArcadeDrive));
-        DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive));     
+        DriverController.leftTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
+        DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));     
     }
 }
