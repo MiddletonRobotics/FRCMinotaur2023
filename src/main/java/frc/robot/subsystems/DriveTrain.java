@@ -8,6 +8,7 @@ import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
 import frc.robot.Utilities.Drivers.XboxController;
+import frc.robot.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -58,16 +59,8 @@ public class DriveTrain extends SubsystemBase {
     );
   }
 
-  public static CommandBase drive(double speed, double turn) {
-    return new CommandBase() {
-      @Override
-      public void execute() {
-        leftMotors[0].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-        leftMotors[1].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-        rightMotors[0].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-        rightMotors[1].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-      }
-    };
+  public void initDefauktCommand() {
+    setDefaultCommand(new ArcadeDrive(null));
   }
 
   @Override
@@ -81,7 +74,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void tankDrive(double rightSpeed, double leftSpeed) {
-    DriveTrain.drive(leftSpeed, rightSpeed);
+    DriveTrain.tankDrive(leftSpeed, rightSpeed);
   }
 
   public void setMaxPower(double power) {
