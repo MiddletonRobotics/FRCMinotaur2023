@@ -28,7 +28,6 @@ public class Intakaur {
         
             if (i != 0) {
                 intakaurMotors[i].follow(intakaurMotors[0]);
-                intakaurMotors[i].follow(intakaurMotors[0]);
             }
         }
     }
