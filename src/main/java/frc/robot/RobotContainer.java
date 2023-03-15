@@ -22,7 +22,7 @@ public class RobotContainer {
     public RobotContainer() {
         configureButtonBindings();
 
-        drivetrain.setDefaultCommand(new RunCommand(() -> ArcadeDrive.execute(), drivetrain));
+        drivetrain.setDefaultCommand(ArcadeDrive);
     }
 
     private void configureButtonBindings() {

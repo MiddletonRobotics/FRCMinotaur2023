@@ -60,7 +60,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void initDefauktCommand() {
-    setDefaultCommand(new ArcadeDrive(null));
+    setDefaultCommand(new ArcadeDrive(this));
   }
 
   @Override
@@ -73,11 +73,17 @@ public class DriveTrain extends SubsystemBase {
     rightMotors[1].set(ControlMode.PercentOutput, 0);
   }
 
-  public void tankDrive(double rightSpeed, double leftSpeed) {
-    DriveTrain.tankDrive(leftSpeed, rightSpeed);
-  }
+  public void arcadeDrive(double speed, double rotation) {
 
-  public void setMaxPower(double power) {
-    this.maxSpeed = power;
+    if(speed < 0.1 && speed > -0.1) {
+      speed = 0;
+    } else if(rotation < 0.1 && rotation > -0.1) {
+      rotation = 0;
+    } else {
+      speed = speed * motorReductionSpeed;
+      rotation = rotation * motorReductionTurn;
+    }
+
+    arcadeDrive(speed, rotation);
   }
 }
