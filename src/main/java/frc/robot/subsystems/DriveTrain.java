@@ -61,7 +61,7 @@ public class DriveTrain extends SubsystemBase {
     drivetrain.setSafetyEnabled(false);
   }
 
-  public void initDefauktCommand() {
+  public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive(this));
   }
 
