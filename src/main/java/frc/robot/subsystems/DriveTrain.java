@@ -57,6 +57,8 @@ public class DriveTrain extends SubsystemBase {
       new MotorControllerGroup(leftMotors[0], leftMotors[1]), 
       new MotorControllerGroup(rightMotors[0], rightMotors[1])
     );
+
+    drivetrain.setSafetyEnabled(false);
   }
 
   public void initDefauktCommand() {
