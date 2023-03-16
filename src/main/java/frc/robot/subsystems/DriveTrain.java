@@ -21,7 +21,7 @@ public class DriveTrain extends SubsystemBase {
   public static WPI_TalonSRX[] leftMotors;
   public static WPI_TalonSRX[] rightMotors;
 
-  private double maxSpeed = 0.8;
+  public static DifferentialDrive drivetrain;
 
   public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
@@ -86,6 +86,6 @@ public class DriveTrain extends SubsystemBase {
       rotation = rotation * motorReductionTurn;
     }
 
-    arcadeDrive(speed, rotation);
+    drivetrain.arcadeDrive(speed, rotation);
   }
 }
