@@ -64,7 +64,7 @@ public class DriveTrain extends SubsystemBase {
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive(this));
   }
-
+  
   @Override
   public void periodic() {}
   
@@ -75,7 +75,23 @@ public class DriveTrain extends SubsystemBase {
     rightMotors[1].set(ControlMode.PercentOutput, 0);
   }
 
-  public void arcadeDrive(double speed, double rotation) {
-    drivetrain.arcadeDrive(speed, rotation);
+  public void ArcadeDrive(double speed, double rotation) {
+
+    if(speed < 0.1 && speed > -0.1) {
+      speed = 0;
+    } else if(rotation < 0.1 && rotation > -0.1) {
+      rotation = 0;
+    } else {
+      speed = speed * motorReductionSpeed;
+      rotation = rotation * motorReductionTurn;
+    }
+
+    double leftDrive = speed - rotation;
+    double rightDrive = speed + rotation;
+
+    leftMotors[0].set(ControlMode.PercentOutput, leftDrive);
+    leftMotors[1].set(ControlMode.PercentOutput, leftDrive);
+    rightMotors[0].set(ControlMode.PercentOutput, rightDrive);
+    rightMotors[1].set(ControlMode.PercentOutput, rightDrive);
   }
 }

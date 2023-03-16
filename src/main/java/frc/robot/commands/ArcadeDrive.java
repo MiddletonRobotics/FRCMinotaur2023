@@ -27,26 +27,14 @@ public class ArcadeDrive extends CommandBase {
             double speed = DriverController.getRightTriggerAxis();
             double rotation = DriverController.getLeftX();
 
-            if(rotation < 0.1 && rotation > -0.1) {
-                rotation = 0;
-            } else {
-                speed = speed * motorReductionSpeed;
-                rotation = rotation * motorReductionTurn;
-            }
-
-            drivetrain.arcadeDrive(speed, rotation);
-        } else if(DriverController.getLeftTriggerAxis() > kJoystickAxisThreshold) {
-            double speed = -DriverController.getLeftTriggerAxis();
+            drivetrain.ArcadeDrive(speed, rotation);
+        }else if(DriverController.getLeftTriggerAxis() > kJoystickAxisThreshold) {
+            double speed = DriverController.getLeftTriggerAxis();
             double rotation = DriverController.getLeftX();
 
-            if(rotation < 0.1 && rotation > -0.1) {
-                rotation = 0;
-            } else {
-                speed = speed * motorReductionSpeed;
-                rotation = rotation * motorReductionTurn;
-            }
-
-            drivetrain.arcadeDrive(speed, rotation);
+            drivetrain.ArcadeDrive(-speed, rotation);
+        } else {
+            drivetrain.ArcadeDrive(0, 0);
         }
     }
 }
