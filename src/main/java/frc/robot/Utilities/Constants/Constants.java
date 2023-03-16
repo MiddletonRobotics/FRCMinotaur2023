@@ -16,13 +16,16 @@ public interface Constants {
 
     int armMotorID = 7;
 
+    double intakaurOutSpeed = 0.75;
+    int intakaurInSpeed = 1;
+
     int DriverControllerPort = 0;
 
     double kTriggerAxisThreshold = 0.1;
     double kJoystickAxisThreshold = 0.1;
 
     double motorReductionSpeed = 1; 
-    double motorReductionTurn = 0.8;
+    double motorReductionTurn = 0.6;
 
     double rightSpeedOverCorrection = 0.9;
 }
