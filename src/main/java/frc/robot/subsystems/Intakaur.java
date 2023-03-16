@@ -3,16 +3,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.commands.SpinIntakaur;
 import static frc.robot.Utilities.Constants.Constants.*;
 import frc.robot.Utilities.Drivers.XboxController;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,13 +27,7 @@ public class Intakaur extends SubsystemBase {
         intakaurMotors[1] = new WPI_VictorSPX(intakaurMotor2ID);
 
         for (int i = 0; i < 2; i++) {
-            intakaurMotors[i].setInverted(true);
-            intakaurMotors[i].setNeutralMode(NeutralMode.Brake);
-            intakaurMotors[i].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-            intakaurMotors[i].setSelectedSensorPosition(0);
-            intakaurMotors[i].configVelocityMeasurementWindow(1);
-            intakaurMotors[i].configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_1Ms);
-        
+            intakaurMotors[i].setInverted(true);        
             if (i != 0) {
                 intakaurMotors[i].follow(intakaurMotors[0]);
             }

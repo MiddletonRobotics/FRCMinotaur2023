@@ -76,16 +76,6 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double speed, double rotation) {
-
-    if(speed < 0.1 && speed > -0.1) {
-      speed = 0;
-    } else if(rotation < 0.1 && rotation > -0.1) {
-      rotation = 0;
-    } else {
-      speed = speed * motorReductionSpeed;
-      rotation = rotation * motorReductionTurn;
-    }
-
     drivetrain.arcadeDrive(speed, rotation);
   }
 }

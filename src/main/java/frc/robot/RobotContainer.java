@@ -23,14 +23,14 @@ public class RobotContainer {
        
     public RobotContainer() {
         configureButtonBindings();
-        drivetrain.setDefaultCommand(new RunCommand(() -> ArcadeDrive.execute(), drivetrain));
-        intakaur.setDefaultCommand(new RunCommand(() -> SpinIntakaur.execute(), intakaur));
+        drivetrain.setDefaultCommand(ArcadeDrive);
+        // intakaur.setDefaultCommand(new RunCommand(() -> SpinIntakaur.execute(), intakaur));
     }
 
     private void configureButtonBindings() {
         DriverController.leftTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
         DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
         
-        DriverController.a().whileTrue(Commands.run(() -> SpinIntakaur.execute()));
+        // DriverController.a().whileTrue(Commands.run(() -> SpinIntakaur.execute()));
     }
 }
