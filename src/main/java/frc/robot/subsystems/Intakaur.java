@@ -6,11 +6,20 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import frc.robot.commands.SpinIntakaur;
 import static frc.robot.Utilities.Constants.Constants.*;
+import frc.robot.Utilities.Drivers.XboxController;
 
-public class Intakaur {
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class Intakaur extends SubsystemBase {
     public static WPI_VictorSPX[] intakaurMotors;
 
     public Intakaur() {
@@ -32,15 +41,14 @@ public class Intakaur {
         }
     }
 
-    public static CommandBase drive(double speed, double turn) {
-        return new CommandBase() {
-            @Override
-            public void execute() {
-                intakaurMotors[0].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-                intakaurMotors[1].set(ControlMode.PercentOutput, speed * motorReductionSpeed);
-            }
-        };
+    public void initDefaultCommand() {
+        setDefaultCommand(new SpinIntakaur(this));
     }
+
+    public void spinMotor(double speed){
+        intakaurMotors[0].set(ControlMode.PercentOutput, speed);
+        intakaurMotors[1].set(ControlMode.PercentOutput, speed);
+      }
 
     public void stop() {
         intakaurMotors[0].set(ControlMode.PercentOutput, 0);
