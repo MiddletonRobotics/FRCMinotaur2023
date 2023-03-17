@@ -27,7 +27,7 @@ public class Intakaur extends SubsystemBase {
         intakaurMotors[1] = new WPI_VictorSPX(intakaurMotor2ID);
 
         for (int i = 0; i < 2; i++) {
-            intakaurMotors[i].setInverted(true);        
+            intakaurMotors[i].setInverted(false);        
             if (i != 0) {
                 intakaurMotors[i].follow(intakaurMotors[0]);
             }

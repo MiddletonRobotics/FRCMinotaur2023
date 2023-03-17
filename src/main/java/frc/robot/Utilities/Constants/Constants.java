@@ -16,7 +16,7 @@ public interface Constants {
 
     int armMotorID = 7;
 
-    double intakaurOutSpeed = 0.75;
+    double intakaurOutSpeed = -0.25;
     int intakaurInSpeed = 1;
 
     int DriverControllerPort = 0;
