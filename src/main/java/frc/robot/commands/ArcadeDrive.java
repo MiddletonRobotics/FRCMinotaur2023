@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Utilities.Constants.Constants.*;
+
+import frc.robot.Utilities.Constants.Constants;
 import frc.robot.Utilities.Drivers.XboxController;
 import frc.robot.subsystems.DriveTrain;
 
@@ -23,18 +25,18 @@ public class ArcadeDrive extends CommandBase {
 
     @Override
     public void execute() {
-        if(DriverController.getRightTriggerAxis() > kJoystickAxisThreshold) {
+        if(DriverController.getRightTriggerAxis() > Constants.kTriggerAxisThreshold) {
             double speed = DriverController.getRightTriggerAxis();
             double rotation = DriverController.getLeftX();
 
-            drivetrain.ArcadeDrive(speed, rotation);
-        }else if(DriverController.getLeftTriggerAxis() > kJoystickAxisThreshold) {
+            drivetrain.Drive(speed, rotation);
+        }else if(DriverController.getLeftTriggerAxis() > Constants.kTriggerAxisThreshold) {
             double speed = DriverController.getLeftTriggerAxis();
             double rotation = DriverController.getLeftX();
 
-            drivetrain.ArcadeDrive(-speed, rotation);
+            drivetrain.Drive(-speed, rotation);
         } else {
-            drivetrain.ArcadeDrive(0, 0);
+            drivetrain.stop();
         }
     }
 }

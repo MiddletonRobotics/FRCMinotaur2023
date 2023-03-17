@@ -22,7 +22,8 @@ public interface Constants {
     int DriverControllerPort = 0;
 
     double kTriggerAxisThreshold = 0.1;
-    double kJoystickAxisThreshold = 0.1;
+    double kPositiveJoystickAxisThreshold = 0.1;
+    double kNegativeJoystickAxisThreshold = -0.1;
 
     double motorReductionSpeed = 1; 
     double motorReductionTurn = 0.6;

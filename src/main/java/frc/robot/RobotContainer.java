@@ -34,8 +34,8 @@ public class RobotContainer {
         DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
         
         DriverController.a().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
-        DriverController.a().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
+        DriverController.a().whileFalse(Commands.run(() -> intakaur.stop()));
         DriverController.b().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
-        DriverController.b().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
+        DriverController.b().whileFalse(Commands.run(() -> intakaur.stop()));
     }
 }

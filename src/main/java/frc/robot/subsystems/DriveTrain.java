@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
+
+import frc.robot.Utilities.Constants.Constants;
 import frc.robot.Utilities.Drivers.XboxController;
 import frc.robot.commands.ArcadeDrive;
 
@@ -68,30 +70,21 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {}
   
-  public void stop(double speed, double rotation) {
-    leftMotors[0].set(ControlMode.PercentOutput, 0);
-    leftMotors[1].set(ControlMode.PercentOutput, 0);
-    rightMotors[0].set(ControlMode.PercentOutput, 0);
-    rightMotors[1].set(ControlMode.PercentOutput, 0);
+  public void stop() {
+    drivetrain.arcadeDrive(0, 0);
   }
 
-  public void ArcadeDrive(double speed, double rotation) {
+  public void Drive(double speed, double rotation) {
 
-    if(speed < 0.1 && speed > -0.1) {
+    if(speed < Constants.kPositiveJoystickAxisThreshold && speed > Constants.kNegativeJoystickAxisThreshold) {
       speed = 0;
-    } else if(rotation < 0.1 && rotation > -0.1) {
+    } else if(rotation < Constants.kPositiveJoystickAxisThreshold && rotation > Constants.kNegativeJoystickAxisThreshold) {
       rotation = 0;
     } else {
       speed = speed * motorReductionSpeed;
       rotation = rotation * motorReductionTurn;
     }
 
-    double leftDrive = speed - rotation;
-    double rightDrive = speed + rotation;
-
-    leftMotors[0].set(ControlMode.PercentOutput, leftDrive);
-    leftMotors[1].set(ControlMode.PercentOutput, leftDrive);
-    rightMotors[0].set(ControlMode.PercentOutput, rightDrive);
-    rightMotors[1].set(ControlMode.PercentOutput, rightDrive);
+    drivetrain.arcadeDrive(speed, rotation);
   }
 }
