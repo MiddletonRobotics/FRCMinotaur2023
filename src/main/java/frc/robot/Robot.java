@@ -5,7 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,10 +18,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
+  private DriveTrain driveTrain;
+  private double startTime;
 
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    driveTrain = new DriveTrain();
   }
 
   @Override
@@ -28,10 +33,24 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    startTime = Timer.getFPGATimestamp();
+  }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    double time = Timer.getFPGATimestamp();
+
+    if(time - startTime < 0.2) {
+      driveTrain.Drive(0.5, 0);
+    } else if(time - startTime > 0.2 && time - startTime < 0.55) {
+      driveTrain.Drive(-0.6, 0.5);
+    } else if(time - startTime > 0.55 && time - startTime < 3.33) {
+      driveTrain.Drive(0.5, 0);
+    } else {
+      driveTrain.Drive(0, 0);
+    }
+  }
 
   @Override
   public void teleopInit() {}
