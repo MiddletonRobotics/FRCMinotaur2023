@@ -49,14 +49,12 @@ public class DriveTrain extends SubsystemBase {
           rightMotors[i].follow(rightMotors[0]);
       }
 
-      public DifferentialDrive drivetrain;
+      public DifferentialDrive drivetrain = new DifferentialDrive(
+        new MotorControllerGroup(leftMotors[0], leftMotors[1]), 
+        new MotorControllerGroup(rightMotors[0], rightMotors[1])
+      );
     }
   }
-
-  drivetrain = new DifferentialDrive(
-      new MotorControllerGroup(leftMotors[0], leftMotors[1]), 
-      new MotorControllerGroup(rightMotors[0], rightMotors[1])
-  );
 
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive(this));
