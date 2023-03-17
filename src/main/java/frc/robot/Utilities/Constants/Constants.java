@@ -24,8 +24,8 @@ public interface Constants {
     double kTriggerAxisThreshold = 0.1;
     double kJoystickAxisThreshold = 0.1;
 
-    double motorReductionSpeed = 1; 
-    double motorReductionTurn = 0.6;
+    int motorReductionSpeed = 1; 
+    double motorReductionTurn = 0.5;
 
     double rightSpeedOverCorrection = 0.9;
 }
