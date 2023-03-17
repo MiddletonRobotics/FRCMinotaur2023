@@ -8,10 +8,12 @@ import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
 import frc.robot.Utilities.Constants.Constants;
+import frc.robot.Utilities.Drivers.XboxController;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -19,6 +21,7 @@ public class DriveTrain extends SubsystemBase {
   public WPI_TalonSRX[] rightMotors;
 
   public DifferentialDrive drivetrain;
+  public CommandXboxController DriverController = XboxController.getDriverController();
 
   public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
@@ -56,23 +59,26 @@ public class DriveTrain extends SubsystemBase {
     }
   }
   
-  @Override
-  public void periodic() {}
-  
   public void stop() {
     drivetrain.arcadeDrive(0, 0);
   }
 
-  public void Drive(double speed, double rotation) {
-    if(speed < Constants.kPositiveJoystickAxisThreshold && speed > Constants.kNegativeJoystickAxisThreshold) {
-      speed = 0;
-    } else if(rotation < Constants.kPositiveJoystickAxisThreshold && rotation > Constants.kNegativeJoystickAxisThreshold) {
+  public void driveStraight() {
+    double forwards = DriverController.getLeftTriggerAxis();
+    double backwards = DriverController.getRightTriggerAxis();
+    double rotation = DriverController.getLeftX();
+
+    if(rotation < Constants.kPositiveJoystickAxisThreshold || rotation > Constants.kNegativeJoystickAxisThreshold) {
       rotation = 0;
-    } else {
-      speed = speed * motorReductionSpeed;
-      rotation = rotation * motorReductionTurn;
+    } else if(forwards < Constants.kPositiveJoystickAxisThreshold || forwards > Constants.kNegativeJoystickAxisThreshold) {
+      forwards = 0;
+    } else if(backwards < Constants.kPositiveJoystickAxisThreshold || backwards > Constants.kNegativeJoystickAxisThreshold) {
+      backwards = 0;
+    } else if((backwards > Constants.kPositiveJoystickAxisThreshold || backwards < Constants.kNegativeJoystickAxisThreshold) && (forwards > Constants.kPositiveJoystickAxisThreshold || forwards < Constants.kNegativeJoystickAxisThreshold)) {
+      forwards = 0;
+      backwards = 0;
     }
 
-    drivetrain.arcadeDrive(speed, rotation);
+    drivetrain.arcadeDrive(forwards - backwards, rotation);
   }
 }
