@@ -20,8 +20,6 @@ public class DriveTrain extends SubsystemBase {
   public static WPI_TalonSRX[] leftMotors;
   public static WPI_TalonSRX[] rightMotors;
 
-  public DifferentialDrive drivetrain;
-
   public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
     leftMotors[0] = new WPI_TalonSRX(leftMasterID);
@@ -50,6 +48,8 @@ public class DriveTrain extends SubsystemBase {
           leftMotors[i].follow(leftMotors[0]);
           rightMotors[i].follow(rightMotors[0]);
       }
+
+      public DifferentialDrive drivetrain;
     }
   }
 
