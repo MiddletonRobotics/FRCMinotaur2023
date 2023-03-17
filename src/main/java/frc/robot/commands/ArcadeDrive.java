@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Utilities.Constants.Constants.*;
 
-import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleSupplier;
 
 import frc.robot.Utilities.Drivers.XboxController;

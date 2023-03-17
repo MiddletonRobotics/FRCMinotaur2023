@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import static frc.robot.Utilities.Constants.Constants.*;
 
+import java.util.function.DoubleSupplier;
+
 import frc.robot.Utilities.Constants.Constants;
 import frc.robot.Utilities.Drivers.XboxController;
 import frc.robot.subsystems.Intakaur;
