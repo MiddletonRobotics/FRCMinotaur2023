@@ -9,7 +9,6 @@ import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 import static frc.robot.Utilities.Constants.Constants.*;
 
 import frc.robot.Utilities.Constants.Constants;
-import frc.robot.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -19,6 +18,8 @@ public class DriveTrain extends SubsystemBase {
 
   public WPI_TalonSRX[] leftMotors;
   public WPI_TalonSRX[] rightMotors;
+
+  public DifferentialDrive drivetrain;
 
   public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
@@ -49,15 +50,11 @@ public class DriveTrain extends SubsystemBase {
           rightMotors[i].follow(rightMotors[0]);
       }
 
-      public DifferentialDrive drivetrain = new DifferentialDrive(
+      drivetrain = new DifferentialDrive(
         new MotorControllerGroup(leftMotors[0], leftMotors[1]), 
         new MotorControllerGroup(rightMotors[0], rightMotors[1])
       );
     }
-  }
-
-  public void initDefaultCommand() {
-    setDefaultCommand(new ArcadeDrive(this));
   }
   
   @Override
@@ -68,7 +65,6 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void Drive(double speed, double rotation) {
-
     if(speed < Constants.kPositiveJoystickAxisThreshold && speed > Constants.kNegativeJoystickAxisThreshold) {
       speed = 0;
     } else if(rotation < Constants.kPositiveJoystickAxisThreshold && rotation > Constants.kNegativeJoystickAxisThreshold) {

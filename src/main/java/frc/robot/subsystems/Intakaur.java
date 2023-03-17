@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import frc.robot.commands.SpinIntakaur;
 import static frc.robot.Utilities.Constants.Constants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,10 +24,6 @@ public class Intakaur extends SubsystemBase {
                 intakaurMotors[i].follow(intakaurMotors[0]);
             }
         }
-    }
-
-    public void initDefaultCommand() {
-        setDefaultCommand(new SpinIntakaur(this));
     }
 
     public void spinMotor(double speed){

@@ -5,8 +5,4 @@ import static frc.robot.Utilities.Constants.Constants.*;
 
 public class XboxController {
     private static final CommandXboxController DriverController = new CommandXboxController(DriverControllerPort);
-
-    public static CommandXboxController getDriverController() {
-        return DriverController;
-    }
 }
