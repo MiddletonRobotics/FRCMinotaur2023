@@ -14,11 +14,17 @@ import frc.robot.commands.SpinIntakaur;
 import static frc.robot.Utilities.Constants.Constants.*;
 
 import java.lang.constant.Constable;
+import java.util.function.DoubleSupplier;
 
 public class RobotContainer {
     CommandXboxController DriverController = XboxController.getDriverController();
     private final DriveTrain drivetrain = new DriveTrain();
-    private ArcadeDrive ArcadeDrive = new ArcadeDrive(drivetrain);
+
+    private DoubleSupplier speed = () -> DriverController.getRightTriggerAxis() - DriverController.getLeftTriggerAxis();
+    private DoubleSupplier rotation = () -> DriverController.getLeftX();
+
+    private ArcadeDrive ArcadeDrive = new ArcadeDrive(drivetrain, speed, rotation);
+
     
     private final Intakaur intakaur = new Intakaur();
     private SpinIntakaur SpinIntakaur = new SpinIntakaur(new Intakaur());
@@ -30,12 +36,14 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        DriverController.leftTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
-        DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
+
+
+        // DriverController.leftTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
+        // DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
         
-        DriverController.a().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
-        DriverController.a().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
-        DriverController.b().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
-        DriverController.b().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
+        // DriverController.a().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
+        // DriverController.a().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
+        // DriverController.b().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
+        // DriverController.b().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
     }
 }
