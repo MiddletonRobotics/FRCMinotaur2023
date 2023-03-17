@@ -20,7 +20,7 @@ public class DriveTrain extends SubsystemBase {
   public static WPI_TalonSRX[] leftMotors;
   public static WPI_TalonSRX[] rightMotors;
 
-  public static DifferentialDrive drivetrain;
+  public DifferentialDrive drivetrain;
 
   public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
@@ -51,14 +51,12 @@ public class DriveTrain extends SubsystemBase {
           rightMotors[i].follow(rightMotors[0]);
       }
     }
+  }
 
-    final DifferentialDrive drivetrain = new DifferentialDrive(
+  drivetrain = new DifferentialDrive(
       new MotorControllerGroup(leftMotors[0], leftMotors[1]), 
       new MotorControllerGroup(rightMotors[0], rightMotors[1])
-    );
-
-    drivetrain.setSafetyEnabled(false);
-  }
+  );
 
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive(this));
