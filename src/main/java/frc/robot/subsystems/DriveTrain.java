@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
 
-  public static WPI_TalonSRX[] leftMotors;
-  public static WPI_TalonSRX[] rightMotors;
+  public WPI_TalonSRX[] leftMotors;
+  public WPI_TalonSRX[] rightMotors;
 
   public DriveTrain() {
     leftMotors = new WPI_TalonSRX[leftMotorCount];
