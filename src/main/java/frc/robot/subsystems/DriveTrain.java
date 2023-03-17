@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
-
 import frc.robot.Utilities.Constants.Constants;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;

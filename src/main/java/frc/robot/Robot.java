@@ -7,9 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import frc.robot.Utilities.RetrieveSystems;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intakaur;
+import frc.robot.Utilities.Drivers.XboxController;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,11 +19,11 @@ import frc.robot.subsystems.Intakaur;
  */
 public class Robot extends TimedRobot {
 
-  private RetrieveSystems retrieveSystems;
+  public DriveTrain drivetrain;
 
   @Override
   public void robotInit() {
-    retrieveSystems = new RetrieveSystems();
+    drivetrain = new DriveTrain();
   }
 
   @Override
@@ -39,9 +39,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {}
 
   @Override
-  public void teleopPeriodic() {
-    retrieveSystems.getDrivetrain();
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void disabledInit() {}
