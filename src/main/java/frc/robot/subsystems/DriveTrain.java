@@ -7,13 +7,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import static frc.robot.Utilities.Constants.Constants.*;
-import frc.robot.Utilities.Drivers.XboxController;
-import frc.robot.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
@@ -75,8 +71,7 @@ public class DriveTrain extends SubsystemBase {
     rightMotors[1].set(ControlMode.PercentOutput, 0);
   }
 
-  public void Drive(double speed, double rotation) {
-
+  public void driveStraight(double speed, double rotation) {
     if(speed < 0.1 && speed > -0.1) {
       speed = 0;
     } else if(rotation < 0.1 && rotation > -0.1) {
@@ -87,12 +82,25 @@ public class DriveTrain extends SubsystemBase {
     }
 
     drivetrain.arcadeDrive(speed, rotation);
-    // double leftDrive = speed - rotation;
-    // double rightDrive = speed + rotation;
+  }
 
-    // leftMotors[0].set(ControlMode.PercentOutput, leftDrive);
-    // leftMotors[1].set(ControlMode.PercentOutput, leftDrive);
-    // rightMotors[0].set(ControlMode.PercentOutput, rightDrive);
-    // rightMotors[1].set(ControlMode.PercentOutput, rightDrive);
+  public void stopDrive() {
+    drivetrain.arcadeDrive(0, 0);
+  }
+
+  public WPI_TalonSRX getLeftLeader() {
+    return this.leftMotors[0];
+  }
+
+  public WPI_TalonSRX getLeftFollower() {
+    return this.leftMotors[1];
+  }
+
+  public WPI_TalonSRX getRightLeader() {
+    return this.rightMotors[0];
+  }
+
+  public WPI_TalonSRX getRightFollower() {
+    return this.rightMotors[1];
   }
 }

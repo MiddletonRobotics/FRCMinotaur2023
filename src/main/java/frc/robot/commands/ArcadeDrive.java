@@ -1,11 +1,9 @@
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-import static frc.robot.Utilities.Constants.Constants.*;
+// import static frc.robot.Utilities.Constants.Constants.*;
 
 import java.util.function.DoubleSupplier;
 
@@ -30,7 +28,7 @@ public class ArcadeDrive extends CommandBase {
 
     
     public void execute() {
-        drivetrain.Drive(speed.getAsDouble(), rotation.getAsDouble());
+        drivetrain.driveStraight(speed.getAsDouble(), rotation.getAsDouble());
         // if(DriverController.getRightTriggerAxis() > kJoystickAxisThreshold) {
         //     double speed = DriverController.getRightTriggerAxis();
         //     double rotation = DriverController.getLeftX();
