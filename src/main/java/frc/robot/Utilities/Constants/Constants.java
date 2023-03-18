@@ -5,6 +5,7 @@ public interface Constants {
     int leftMotorCount = 2;
     int rightMotorCount = 2;
     int intakaurMotorCount = 2;
+    int armMotorCount = 1;
     
     int leftMasterID = 1;
     int leftSlaveID = 2;
@@ -17,7 +18,10 @@ public interface Constants {
     int armMotorID = 7;
 
     double intakaurOutSpeed = -0.25;
-    int intakaurInSpeed = 1;
+    double intakaurOutSpeedX2 = 0.5;
+    double intakaurInSpeed = 0.4;
+
+    int ArmSpeed = 1;
 
     int DriverControllerPort = 0;
 

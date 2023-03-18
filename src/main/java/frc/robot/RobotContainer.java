@@ -11,8 +11,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.Intakaur;
 import frc.robot.commands.SpinIntakaur;
-// import static frc.robot.Utilities.Constants.Constants.*;
-import frc.robot.commands.Auto;
+import frc.robot.commands.Auto;     
 import frc.robot.subsystems.Arm;
 import frc.robot.commands.ArmMotion;
 
@@ -36,7 +35,7 @@ public class RobotContainer {
 
     private DoubleSupplier armSpeed = () -> DriverController.getRightY();
 
-    private ArmMotion ArmMotion = new ArmMotion(new Arm(), armSpeed);
+    private ArmMotion ArmMotion = new ArmMotion(arm, armSpeed);
 
     // Declare Intakaur
 
@@ -64,6 +63,8 @@ public class RobotContainer {
         DriverController.a().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
         DriverController.b().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurOutSpeed)));
         DriverController.b().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
+        DriverController.x().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurOutSpeedX2)));
+        DriverController.x().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
     }
 
     public Command getAutonomousCommand() {

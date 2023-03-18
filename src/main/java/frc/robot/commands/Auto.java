@@ -27,7 +27,7 @@ public class Auto extends CommandBase {
       drivetrain.driveStraight(0.5, 0);
     } else if(time - startTime > 0.2 && time - startTime < 0.55) {
       drivetrain.driveStraight(-0.7, 0);
-    } else if(time - startTime > 0.55 && time - startTime < 3.33) {
+    } else if(time - startTime > 0.55 && time - startTime < 1.33) {
       drivetrain.driveStraight(0.6, 0);
     } else {
       drivetrain.driveStraight(0, 0);
