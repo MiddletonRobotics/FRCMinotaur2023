@@ -3,10 +3,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Arm;
 
 public class Auto extends CommandBase {
 
   DriveTrain drivetrain;
+  Arm arm;
   private double startTime;
 
   public Auto(DriveTrain drivetrain) {
@@ -23,12 +25,13 @@ public class Auto extends CommandBase {
   public void execute() {
     double time = Timer.getFPGATimestamp();
 
-    if(time - startTime < 0.2) {
+    if(time - startTime < 0.3) {
       drivetrain.driveStraight(0.5, 0);
-    } else if(time - startTime > 0.2 && time - startTime < 0.55) {
+    } else if(time - startTime > 0.3 && time - startTime < 0.7) {
       drivetrain.driveStraight(-0.7, 0);
-    } else if(time - startTime > 0.55 && time - startTime < 1.33) {
-      drivetrain.driveStraight(0.6, 0);
+    } else if(time - startTime > 0.7 && time - startTime < 5.43) {
+      drivetrain.driveStraight(0.5, 0);
+      arm.spinMotor(0.35);
     } else {
       drivetrain.driveStraight(0, 0);
     }
