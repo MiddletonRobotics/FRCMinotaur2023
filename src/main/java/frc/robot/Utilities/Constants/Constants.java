@@ -29,7 +29,7 @@ public interface Constants {
     double kJoystickAxisThreshold = 0.1;
 
     int motorReductionSpeed = 1; 
-    double motorReductionTurn = 0.5;
+    double motorReductionTurn = 0.4;
 
     double rightSpeedOverCorrection = 0.9;
 }
