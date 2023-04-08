@@ -1,23 +1,19 @@
 package frc.robot.Utilities;
 
+
 import frc.robot.Utilities.Constants.Constants;
 
-public class PIDController {
-
+public class PIDController implements Constants {
     private double i = 0, d, KP, KI,
-            KD, previousError = 0, maxI,
-            previousTime = 0, setpoint = 0,
+            KD, previousError = 0, previousTime = 0, setpoint = 0,
             pidOut = 0;
 
     private boolean enabled = false;
-
-
 
     public PIDController(double KP, double KI, double KD, double maxI) {
         this.KP = KP;
         this.KI = KI;
         this.KD = KD;
-        this.maxI = maxI;
     }
 
     public double get(double currentLoc) {
@@ -76,5 +72,3 @@ public class PIDController {
         this.KP = kp;
     }
 }
-
-
