@@ -55,16 +55,10 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-
-        // DriverController.leftTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
-        // DriverController.rightTrigger().whileTrue(Commands.run(() -> ArcadeDrive.execute()));
-        
         DriverController.a().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurInSpeed)));
         DriverController.a().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
         DriverController.b().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurOutSpeed)));
         DriverController.b().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
-        DriverController.x().whileTrue(Commands.run(() -> intakaur.spinMotor(Constants.intakaurOutSpeedX2)));
-        DriverController.x().whileFalse(Commands.run(() -> intakaur.spinMotor(0)));
     }
 
     public Command getAutonomousCommand() {
