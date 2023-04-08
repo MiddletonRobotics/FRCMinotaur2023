@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
+import frc.robot.Autonomous.Auto;
 import frc.robot.Utilities.Constants.Constants;
 import frc.robot.Utilities.Drivers.XboxController;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.Intakaur;
 import frc.robot.commands.SpinIntakaur;
-import frc.robot.commands.Auto;     
 import frc.robot.subsystems.Arm;
 import frc.robot.commands.ArmMotion;
 
