@@ -18,7 +18,7 @@ public class Arm extends SubsystemBase {
         armMotors[0] = new WPI_VictorSPX(Constants.armMotorID);
 
         armMotors[0].setInverted(false);   
-        armMotors[0].setNeutralMode(NeutralMode.Brake);
+        armMotors[0].setNeutralMode(NeutralMode.EEPROMSetting);
         armMotors[0].configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         armMotors[0].setSelectedSensorPosition(0);
         armMotors[0].configVelocityMeasurementWindow(1);
