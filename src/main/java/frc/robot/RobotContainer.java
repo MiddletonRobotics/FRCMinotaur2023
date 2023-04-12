@@ -44,7 +44,7 @@ public class RobotContainer {
 
     // Declare Auto
 
-    private final Auto auto = new Auto(drivetrain);
+    private final Auto auto = new Auto(drivetrain, arm, intakaur);
     
        
     public RobotContainer() {
