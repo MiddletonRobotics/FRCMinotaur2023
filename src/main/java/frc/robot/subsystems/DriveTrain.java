@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -63,13 +62,6 @@ public class DriveTrain extends SubsystemBase {
   
   @Override
   public void periodic() {}
-  
-  public void stop(double speed, double rotation) {
-    leftMotors[0].set(ControlMode.PercentOutput, 0);
-    leftMotors[1].set(ControlMode.PercentOutput, 0);
-    rightMotors[0].set(ControlMode.PercentOutput, 0);
-    rightMotors[1].set(ControlMode.PercentOutput, 0);
-  }
 
   public void driveStraight(double speed, double rotation) {
     if(speed < 0.1 && speed > -0.1) {
