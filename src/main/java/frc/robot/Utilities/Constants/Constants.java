@@ -28,8 +28,8 @@ public interface Constants {
     double kTriggerAxisThreshold = 0.1;
     double kJoystickAxisThreshold = 0.1;
 
-    int motorReductionSpeed = 1; 
-    double motorReductionTurn = 0.4;
+    double motorReductionSpeed = 0.3; 
+    double motorReductionTurn = 0.3;
 
-    double rightSpeedOverCorrection = 0.9;
+    double rightSpeedOverCorrection = 0.9; // only nessacary in tankDrive when motor value arent being compensated
 }
