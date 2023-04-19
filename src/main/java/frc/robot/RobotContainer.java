@@ -33,14 +33,14 @@ public class RobotContainer {
 
     private final Arm arm = new Arm();
 
-    private DoubleSupplier armSpeed = () -> DriverController.getRightY();
+    private final DoubleSupplier armSpeed = () -> DriverController.getRightY();
 
     private ArmMotion ArmMotion = new ArmMotion(arm, armSpeed);
 
     // Declare Intakaur
 
     private final Intakaur intakaur = new Intakaur();
-    private SpinIntakaur SpinIntakaur = new SpinIntakaur(new Intakaur());
+    private final SpinIntakaur SpinIntakaur = new SpinIntakaur(new Intakaur());
 
     // Declare Auto
 
@@ -51,7 +51,7 @@ public class RobotContainer {
         configureButtonBindings();
         drivetrain.setDefaultCommand(ArcadeDrive);
         arm.setDefaultCommand(ArmMotion);
-        intakaur.setDefaultCommand(new RunCommand(() -> SpinIntakaur.execute(), intakaur));
+        intakaur.setDefaultCommand(new RunCommand(SpinIntakaur::execute, intakaur));
     }
 
     private void configureButtonBindings() {
