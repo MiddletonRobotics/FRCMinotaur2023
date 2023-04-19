@@ -8,8 +8,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Utilities.Constants.Constants;
+import frc.robot.Utilities.Drivers.XboxController;
+
 public class Robot extends TimedRobot {
 
+  public CommandXboxController OperatorController = XboxController.getOperatorController();
   private RobotContainer robotContainer;
   private Command autonomousCommand;
 
@@ -46,11 +51,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    if(OperatorController.getLeftTriggerAxis() > Constants.kTriggerAxisThreshold) {
+      disabledInit();
+      disabledPeriodic();
+    }
+
     CommandScheduler.getInstance().run();
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
   public void disabledPeriodic() {}

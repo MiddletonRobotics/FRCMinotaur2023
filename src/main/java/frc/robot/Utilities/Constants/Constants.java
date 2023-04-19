@@ -24,6 +24,7 @@ public interface Constants {
     int ArmSpeed = 1;
 
     int DriverControllerPort = 0;
+    int OperatorControllerPort = 1;
 
     double kTriggerAxisThreshold = 0.1;
     double kJoystickAxisThreshold = 0.1;
