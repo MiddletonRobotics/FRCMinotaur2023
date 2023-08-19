@@ -18,23 +18,20 @@ import frc.robot.commands.ArmMotion;
 import java.util.function.DoubleSupplier;
 
 public class RobotContainer {
+    
     CommandXboxController DriverController = XboxController.getDriverController();
 
     // Declare Drivetrain 
 
     private final DriveTrain drivetrain = new DriveTrain();
-
     private DoubleSupplier speed = () -> DriverController.getRightTriggerAxis() - DriverController.getLeftTriggerAxis();
     private DoubleSupplier rotation = () -> DriverController.getLeftX();
-
     private ArcadeDrive ArcadeDrive = new ArcadeDrive(drivetrain, speed, rotation);
 
     // Declare Arm
 
     private final Arm arm = new Arm();
-
     private final DoubleSupplier armSpeed = () -> DriverController.getRightY();
-
     private ArmMotion ArmMotion = new ArmMotion(arm, armSpeed);
 
     // Declare Intakaur

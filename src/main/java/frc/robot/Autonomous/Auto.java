@@ -28,9 +28,12 @@ public class Auto extends CommandBase {
     autoChooser.setDefaultOption("Do Nothing", 0);
     autoChooser.addOption("Grid Position 3", 1);
     autoChooser.addOption("Placeholder", 2);
-    autoChooser.addOption("Placeholder", 3);
+    autoChooser.addOption("Placeholder 2", 3);
 
     SmartDashboard.putData("Autonomous Chooser", autoChooser);
+
+    getSelectedAutoRoutine();
+    runSelectedAutoRoutine();
 
     addRequirements(drivetrain, arm, intakaur);
   }

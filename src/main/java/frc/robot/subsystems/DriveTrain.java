@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
-import static frc.robot.Utilities.Constants.Constants.*;
+import frc.robot.Utilities.Constants.Constants;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -19,13 +19,13 @@ public class DriveTrain extends SubsystemBase {
   public DifferentialDrive drivetrain;
 
   public DriveTrain() {
-    leftMotors = new WPI_TalonSRX[leftMotorCount];
-    leftMotors[0] = new WPI_TalonSRX(leftMasterID);
-    leftMotors[1] = new WPI_TalonSRX(leftSlaveID);
+    leftMotors = new WPI_TalonSRX[Constants.leftMotorCount];
+    leftMotors[0] = new WPI_TalonSRX(Constants.leftMasterID);
+    leftMotors[1] = new WPI_TalonSRX(Constants.leftSlaveID);
 
-    rightMotors = new WPI_TalonSRX[rightMotorCount];
-    rightMotors[0] = new WPI_TalonSRX(rightMasterID);
-    rightMotors[1] = new WPI_TalonSRX(rightSlaveID);
+    rightMotors = new WPI_TalonSRX[Constants.rightMotorCount];
+    rightMotors[0] = new WPI_TalonSRX(Constants.rightMasterID);
+    rightMotors[1] = new WPI_TalonSRX(Constants.rightSlaveID);
 
     for (int i = 0; i < 2; i++) {
       leftMotors[i].setInverted(true);
@@ -69,11 +69,11 @@ public class DriveTrain extends SubsystemBase {
     } else if(rotation < 0.1 && rotation > -0.1) {
       rotation = 0;
     } else {
-      speed = speed * motorReductionSpeed;
-      rotation = rotation * motorReductionTurn;
+      speed = speed;
+      rotation = rotation;
     }
 
-    drivetrain.arcadeDrive(speed, rotation);
+    drivetrain.arcadeDrive(speed * Constants.motorReductionSpeed, rotation * Constants.motorReductionTurn);
   }
 
   public void stopDrive() {

@@ -23,7 +23,6 @@ public class Arm extends SubsystemBase {
         armMotors[0].setSelectedSensorPosition(0);
         armMotors[0].configVelocityMeasurementWindow(1);
         armMotors[0].configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_1Ms); 
-        
     }
 
     /* 
