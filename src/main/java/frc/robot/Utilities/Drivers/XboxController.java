@@ -1,10 +1,10 @@
 package frc.robot.Utilities.Drivers;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import static frc.robot.Utilities.Constants.Constants.*;
+import frc.robot.Utilities.Constants.Constants;
 
 public class XboxController {
-    private static final CommandXboxController DriverController = new CommandXboxController(DriverControllerPort);
+    private static final CommandXboxController DriverController = new CommandXboxController(Constants.DriverControllerPort);
 
     public static CommandXboxController getDriverController() {
         return DriverController;
