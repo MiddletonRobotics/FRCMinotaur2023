@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intakaur;
-import frc.robot.subsystems.Arm;
 
 public class Auto extends CommandBase {
 
@@ -16,14 +14,9 @@ public class Auto extends CommandBase {
   private int selectedAuto;
 
   DriveTrain drivetrain;
-  Intakaur intakaur;
-  Arm arm;
-  
 
-  public Auto(DriveTrain drivetrain, Arm arm, Intakaur intakaur) {
+  public Auto(DriveTrain drivetrain) {
     this.drivetrain = drivetrain;
-    this.arm = arm;
-    this.intakaur = intakaur;
 
     autoChooser.setDefaultOption("Do Nothing", 0);
     autoChooser.addOption("Grid Position 3", 1);
@@ -35,7 +28,7 @@ public class Auto extends CommandBase {
     getSelectedAutoRoutine();
     runSelectedAutoRoutine();
 
-    addRequirements(drivetrain, arm, intakaur);
+    addRequirements(drivetrain);
   }
 
   public void getSelectedAutoRoutine() {
@@ -66,7 +59,6 @@ public class Auto extends CommandBase {
       drivetrain.driveStraight(-0.7, 0);
     } else if(time - startTime > 0.7 && time - startTime < 5.43) {
       drivetrain.driveStraight(0.5, 0);
-      arm.spinMotor(0.35);
     } else {
       drivetrain.driveStraight(0, 0);
     }
